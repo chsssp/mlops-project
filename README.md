@@ -1,27 +1,28 @@
-# MLOps Project – End-to-End Model Training and Inference Pipeline
+# MLOps Project – End-to-End Training, Tracking, and Inference Pipeline
 
-This repository demonstrates an end-to-end machine learning workflow covering data generation, model training, model artifact persistence, and real-time inference using a REST API. The project follows production-oriented MLOps principles such as modular design, reproducibility, and service-based deployment.
+This repository demonstrates an end-to-end machine learning workflow including data generation, model training, experiment tracking, containerized inference, and continuous integration. The project reflects production-oriented MLOps practices focused on reproducibility, automation, and reliable model delivery.
 
 ---
 
 ## Architecture Overview
 
-The system follows a standard machine learning lifecycle:
+Data generation → Model training → Experiment tracking → Model artifact persistence → API-based inference → CI validation
 
-Data ingestion → Model training → Model persistence → API-based inference
-
-This structure enables reliable model development and scalable serving.
+This lifecycle enables repeatable experimentation, consistent model serving, and automated validation on every code change.
 
 ---
 
 ## Project Structure
 
-mlops-project/
-api/            – FastAPI inference service  
-data/           – Data generation and datasets  
-training/       – Model training pipeline  
-model/          – Trained model artifact  
-requirements.txt – Project dependencies  
+mlops_project/
+- api/                FastAPI inference service  
+- data/               Data generation and datasets  
+- training/           Model training with MLflow  
+- model/              Trained model artifact  
+- .github/workflows/  GitHub Actions CI pipeline  
+- Dockerfile          Container definition  
+- requirements.txt    Python dependencies  
+- README.md           Documentation  
 
 ---
 
@@ -30,17 +31,15 @@ requirements.txt – Project dependencies
 - Python  
 - scikit-learn  
 - FastAPI  
-- Uvicorn  
-- Joblib  
-- Git and GitHub  
+- MLflow  
+- Docker  
+- GitHub Actions  
 
 ---
 
-## Model Training
+## Model Training and Tracking
 
-The training pipeline loads structured data, trains a classification model, evaluates performance, and serializes the trained model for inference.
-
-Run training using:
+The training pipeline loads tabular data, trains a classification model, evaluates accuracy, logs metrics and artifacts using MLflow, and saves the trained model for inference.
 
 ```bash
 python training/train.py
