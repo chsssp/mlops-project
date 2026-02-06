@@ -1,45 +1,46 @@
-# Beginner MLOps Project (From Scratch)
+# MLOps Project – End-to-End Model Training and Inference Pipeline
 
-This is a **very beginner-friendly MLOps project** you can showcase on GitHub.
+This repository demonstrates an end-to-end machine learning workflow covering data generation, model training, model artifact persistence, and real-time inference using a REST API. The project follows production-oriented MLOps principles such as modular design, reproducibility, and service-based deployment.
 
-You will learn:
-- How to train a ML model
-- How to save the model
-- How to expose it using FastAPI
-- How to version code using GitHub
+---
 
-## Project Flow
-1. Generate sample data
-2. Train ML model
-3. Save model
-4. Run API
-5. Call API for predictions
+## Architecture Overview
 
-## Setup (Mac)
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
+The system follows a standard machine learning lifecycle:
 
-## Step 1: Generate data
-```bash
-python data/generate_data.py
-```
+Data ingestion → Model training → Model persistence → API-based inference
 
-## Step 2: Train model
+This structure enables reliable model development and scalable serving.
+
+---
+
+## Project Structure
+
+mlops-project/
+api/            – FastAPI inference service  
+data/           – Data generation and datasets  
+training/       – Model training pipeline  
+model/          – Trained model artifact  
+requirements.txt – Project dependencies  
+
+---
+
+## Technology Stack
+
+- Python  
+- scikit-learn  
+- FastAPI  
+- Uvicorn  
+- Joblib  
+- Git and GitHub  
+
+---
+
+## Model Training
+
+The training pipeline loads structured data, trains a classification model, evaluates performance, and serializes the trained model for inference.
+
+Run training using:
+
 ```bash
 python training/train.py
-```
-
-## Step 3: Run API
-```bash
-uvicorn api.app:app --reload
-```
-
-## Step 4: Test API
-```bash
-curl -X POST http://127.0.0.1:8000/predict \
--H "Content-Type: application/json" \
--d '{"age":40,"salary":70000}'
-```
