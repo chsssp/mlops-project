@@ -6,10 +6,11 @@ on:
   pull_request:
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -17,17 +18,15 @@ jobs:
         with:
           python-version: "3.10"
 
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+        run: pip install -r requirements.txt
 
-      - name: Basic import check
-        run: |
-          python -c "import pandas, sklearn, fastapi, mlflow; print('Imports OK')"
+      - name: Generate data
+        run: python data/generate_data.py
 
-      - name: Train model (smoke test)
-        run: |
-          python data/generate_data.py
-          python training/train.py
+      - name: Train model
+        run: python training/train.py
 
